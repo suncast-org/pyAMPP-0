@@ -1,0 +1,6 @@
+[submodule "rendergrff"]
+	path = rendergrff
+	url = https://github.com/kuznetsov-radio/gximagecomputing
+[submodule "nlfff"]
+	path = nlfff
+	url = https://github.com/Alexey-Stupishin/Magnetic-Field_Library
