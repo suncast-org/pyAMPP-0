@@ -11,13 +11,12 @@ def combo_model(bndbox, box):
 
     chromo_mask = decompose(base_bz, base_ic)
     chromo = populate_chromo(chromo_mask)
-    #pdb.set_trace()
 
     csize = chromo['nh'].shape
 
-    bx = box['bx'].swapaxes(0, 1)
-    by = box['by'].swapaxes(0, 1)
-    bz = box['bz'].swapaxes(0, 1)
+    bx = box['by'].transpose((1, 2, 0))
+    by = box['bx'].transpose((1, 2, 0))
+    bz = box['bz'].transpose((1, 2, 0))
 
     dim = bx.shape
     box_bcube = np.zeros((dim[0], dim[1], dim[2], 3))
@@ -52,7 +51,7 @@ def combo_model(bndbox, box):
 
     for i in range(csize[0]):
         for j in range(csize[1]):
-            tr_idx[i, j] = np.max(np.where(chromo["dh"][i, j, :] != 0)[0])
+            tr_idx[i, j] = np.max(np.where(chromo["dh"][i, j, :] != 0)[0])+1
             if tr_idx[i, j] < csize[2]:
                 dh[i,j,tr_idx[i,j]:] = (corona_base_height - tr_h[i,j]) / dh[i,j,tr_idx[i,j]:].size
             else:
@@ -65,15 +64,15 @@ def combo_model(bndbox, box):
     big_dh = np.zeros((csize[0], csize[1], big_size))
     big_dh[:, :, 0:csize[2]] = dh[:, :, 0:csize[2]]
     big_dh[:, :, csize[2]:] = dz
-    big_h = np.zeros((csize[0], csize[1], big_size))
+    big_h = np.zeros((csize[0], csize[1], big_size), dtype=np.float64)
     cum_big_h = np.cumsum(big_dh, axis=2)
     big_h[:, :, 1:big_size] = cum_big_h[:, :, 0:big_size-1]
 
-    max_chromo_idx = np.max(tr_idx) # should be 89
+    max_chromo_idx = np.max(tr_idx)
 
-    h = big_h[:, :, 0:max_chromo_idx+1]
+    h = big_h[:, :, 0:max_chromo_idx]
 
-    bcube = np.zeros((csize[0], csize[1], max_chromo_idx+1, 3))
+    bcube = np.zeros((csize[0], csize[1], max_chromo_idx, 3))
 
     for i in range(csize[0]):
         for j in range(csize[1]):
@@ -81,25 +80,15 @@ def combo_model(bndbox, box):
             bcube[i, j, :, 1] = interp1d(z[i, j, :], box_bcube[i, j, :, 1])(h[i, j, :])
             bcube[i, j, :, 2] = interp1d(z[i, j, :], box_bcube[i, j, :, 2])(h[i, j, :])
 
-    t  = chromo['temp'].flatten(order="F")[chromo_idx]
-    n   = chromo['nne'].flatten(order="F")[chromo_idx]
-    nh   = chromo['nh'].flatten(order="F")[chromo_idx]
-    nhi = chromo['nhi'].flatten(order="F")[chromo_idx]
-    n_p  = chromo['np'].flatten(order="F")[chromo_idx]
-
-    bx = bcube[:, :, :, 0]
-    by = bcube[:, :, :, 1]
-    bz = bcube[:, :, :, 2]
-    csize = bx.shape
-
-    bcube = np.zeros((csize[0], csize[1], max_chromo_idx+1, 3))
-    bsize = bcube.shape
-    bcube[:, :, :, 0] = bx
-    bcube[:, :, :, 1] = by
-    bcube[:, :, :, 2] = bz
+    t  = chromo['temp'].T.flat[chromo_idx]
+    n   = chromo['nne'].T.flat[chromo_idx]
+    nh   = chromo['nh'].T.flat[chromo_idx]
+    nhi = chromo['nhi'].T.flat[chromo_idx]
+    n_p  = chromo['np'].T.flat[chromo_idx]
 
     return {
         'chromo_idx': chromo_idx,
+        'bcube': box_bcube,
         'chromo_bcube': bcube,
         'n_htot': nh,
         'n_hi': nhi,
@@ -110,5 +99,6 @@ def combo_model(bndbox, box):
         'chromo_layers': max_chromo_idx,
         'tr': tr_idx,
         'tr_h': tr_h,
-        'corona_base': corona_base_idx
+        'corona_base': corona_base_idx,
+        'dr': dr
     }
