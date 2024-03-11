@@ -25,7 +25,7 @@ def decompose(mag, cont):
     print("cutoff_f: ", cutoff_f)
     
     # creating decomposition mask
-    model_mask = np.zeros(cont.shape)
+    model_mask = np.zeros(cont.shape, dtype=np.int32)
     abs_mag = np.abs(mag)
 
     # umbra

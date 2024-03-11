@@ -19,7 +19,7 @@ def combo_model(bndbox, box):
     bz = box['bz'].transpose((1, 2, 0))
 
     dim = bx.shape
-    box_bcube = np.zeros((dim[0], dim[1], dim[2], 3))
+    box_bcube = np.zeros((dim[0], dim[1], dim[2], 3), dtype=np.float32)
     box_bcube[:, :, :, 0] = bx
     box_bcube[:, :, :, 1] = by
     box_bcube[:, :, :, 2] = bz
@@ -28,9 +28,9 @@ def combo_model(bndbox, box):
     
     dx = dr[0]
     dy = dr[1]
-    dz = np.ones((msize[0], msize[1], msize[2])) * dr[2]
+    dz = np.ones((msize[0], msize[1], msize[2]), dtype=np.float64) * dr[2]
 
-    z = np.zeros((msize[0], msize[1], msize[2]))
+    z = np.zeros((msize[0], msize[1], msize[2]), dtype=np.float64)
     cumz = np.cumsum(dz, axis=2)
     z[:, :, 1:msize[2]] = cumz[:, :, 0:msize[2]-1]
 
@@ -72,7 +72,7 @@ def combo_model(bndbox, box):
 
     h = big_h[:, :, 0:max_chromo_idx]
 
-    bcube = np.zeros((csize[0], csize[1], max_chromo_idx, 3))
+    bcube = np.zeros((csize[0], csize[1], max_chromo_idx, 3), dtype=np.float32)
 
     for i in range(csize[0]):
         for j in range(csize[1]):
