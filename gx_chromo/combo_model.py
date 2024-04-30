@@ -4,11 +4,19 @@ import pdb
 from .decompose import decompose
 from .populate_chromo import populate_chromo
 
-def combo_model(bndbox, box):
+def combo_model_idl(bndbox, box):
     base_bz = bndbox["base"][0]["bz"][0].T
     base_ic = bndbox["base"][0]["ic"][0].T
     dr = bndbox["dr"][0]
 
+    #box2 = {}
+
+    #for k in ("bx", "by", "bz"):
+    #    box2[k] = box[k].transpose((1, 2, 0))
+
+    return combo_model(box, dr, base_bz, base_ic)
+
+def combo_model(box, dr, base_bz, base_ic):
     chromo_mask = decompose(base_bz, base_ic)
     chromo = populate_chromo(chromo_mask)
 
