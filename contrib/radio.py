@@ -57,20 +57,16 @@ class GXRadioImageComputing:
         return ebtel_c, ebtel_dt
     
     def load_model_dict(self, model_dict, header):
-        lon = header["CRVAL1"]
-        lat = header["CRVAL2"]
-        obs_time = Time(header["DATE_OBS"])
-        dsun_obs = header["DSUN_OBS"]
-    
+        lon, lat, dsun_obs, obs_time = [header.get(k) for k in ("lon", "lat", "dsun_obs", "obs_time")]
         init_coords = SkyCoord(lon*u.deg, lat*u.deg, frame=frames.HeliographicCarrington,rsun=696000*u.km,\
-                           obstime=obs_time, observer="earth")
+                       obstime=obs_time, observer="earth")
         hcc = init_coords.transform_to(frames.Heliocentric)
         obstime = obs_time.unix - 283996800 # according to IDL specs, anytim function
-    
+
         x, y, z = hcc.cartesian.x, hcc.cartesian.y, hcc.cartesian.z
         xC, yC, zC = (c.to(u.cm).value for c in (x, y, z))
         # Warning: the values xC, yC, zC slightly differ, because sunpy Heliocentric system is different from IDL
-    
+
         DSun = dsun_obs*1e2
         RSun = init_coords.rsun.to(u.cm).value
         
