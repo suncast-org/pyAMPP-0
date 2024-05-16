@@ -112,9 +112,9 @@ class MagFieldWrapper:
         pass
 
     def load_cube_vars(self, bx, by, bz, dr):
-        self.__by = bx.astype(np.float64, order="C")
-        self.__bx = by.astype(np.float64, order="C")
-        self.__bz = bz.astype(np.float64, order="C")
+        self.__by = bx.transpose((0, 2, 1)).astype(np.float64, order="C")
+        self.__bx = by.transpose((0, 2, 1)).astype(np.float64, order="C")
+        self.__bz = bz.transpose((0, 2, 1)).astype(np.float64, order="C")
         Nc = self.__bx.shape
         self.__N = np.array([Nc[2], Nc[1], Nc[0]], dtype = np.int32)
         self.__step = np.array([dr, dr, dr], dtype = np.float64)
