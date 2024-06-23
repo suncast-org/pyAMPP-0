@@ -20,11 +20,10 @@ import h5py
 
 pyampp_dir = "./"
 sys.path.append(pyampp_dir)
-nlfff_libpath = (Path(pyampp_dir) / 'nlfff/binaries/WWNLFFFReconstruction.so').resolve()
 radio_libpath = (Path(pyampp_dir) / 'rendergrff/binaries/RenderGRFF.so').resolve()
 
 from contrib.lff import mf_lfff
-from contrib.MagFieldWrapper import MagFieldWrapper
+from pyAMaFiL.mag_field_wrapper import MagFieldWrapper
 from contrib.radio import GXRadioImageComputing
 import gx_chromo.combo_model
 

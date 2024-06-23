@@ -1,10 +1,11 @@
 numpy
 astropy
-sunpy=5.1.1
-drms=0.6.4
+sunpy==5.1.1
+drms==0.6.4
 matplotlib
 h5py
 scipy
 lxml
 zeep
 reproject
+git+https://github.com/Alexey-Stupishin/pyAMaFiL
