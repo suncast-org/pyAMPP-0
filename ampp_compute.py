@@ -27,7 +27,7 @@ from pyAMaFiL.mag_field_wrapper import MagFieldWrapper
 from contrib.radio import GXRadioImageComputing
 import gx_chromo.combo_model
 
-maglib = MagFieldWrapper(nlfff_libpath)
+maglib = MagFieldWrapper()
 
 os.environ['OMP_NUM_THREADS']='16' # number of parallel threads
 locale.setlocale(locale.LC_ALL, "C");

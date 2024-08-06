@@ -8,4 +8,4 @@ scipy
 lxml
 zeep
 reproject
-git+https://github.com/Alexey-Stupishin/pyAMaFiL
+pyAMaFiL
