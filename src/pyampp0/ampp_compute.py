@@ -18,14 +18,9 @@ import locale
 from sunpy.map import all_coordinates_from_map
 import h5py
 
-pyampp_dir = "./"
-sys.path.append(pyampp_dir)
-radio_libpath = (Path(pyampp_dir) / 'rendergrff/binaries/RenderGRFF.so').resolve()
-
-from contrib.lff import mf_lfff
+from .contrib.lff import mf_lfff
 from pyAMaFiL.mag_field_wrapper import MagFieldWrapper
-from contrib.radio import GXRadioImageComputing
-import gx_chromo.combo_model
+from .gx_chromo.combo_model import combo_model
 
 maglib = MagFieldWrapper()
 
@@ -187,7 +182,7 @@ def ampp_field(dl_path, out_model, x, y, dx, dy, dz, res):
 
     dr3 = [obs_dr.value, obs_dr.value, obs_dr.value]
     
-    chromo_box=gx_chromo.combo_model.combo_model(box, dr3, base_bz.data.T, base_ic.data.T)
+    chromo_box=combo_model(box, dr3, base_bz.data.T, base_ic.data.T)
     
     chromo_box["avfield"] = lines["av_field"].transpose((1, 2, 0))
     chromo_box["physlength"] = lines["phys_length"].transpose((1, 2, 0)) * dr3[0]

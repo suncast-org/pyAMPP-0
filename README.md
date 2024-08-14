@@ -5,22 +5,18 @@ The aim of this repo is to provide a minimum viable example of [GX Simulator](ht
 Clone with all of the submodules 
 
 ```bash
-git clone https://github.com/suncast-org/pyAMPP-0
-cd pyAMPP-0
-git submodule update --init --remote --recursive
+pip install git+https://github.com/vit1-irk/pyAMPP-0
 ```
 
-and run `example.ipynb`
+### Using with Python
 
-Don't forget to compile Linux version of library in `nlfff` directory!
-
-### Does it work?
-
-It's not yet fully working, you still need IDL-produced .SAV files for potential field and photosphere bounded boxes.
+```python
+from pyampp0 import ampp_compute
+```
 
 ### Credits
 
 Upstream submodules:
 
-* <https://github.com/Alexey-Stupishin/Magnetic-Field_Library>
+* <https://github.com/Alexey-Stupishin/pyAMaFiL>
 * <https://github.com/kuznetsov-radio/gximagecomputing>
