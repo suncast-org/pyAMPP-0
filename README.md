@@ -2,10 +2,8 @@
 
 The aim of this repo is to provide a minimum viable example of [GX Simulator](https://github.com/Gelu-Nita/GX_Simulator) Automated Model Production Pipeline ported line-by-line to Python.
 
-Clone with all of the submodules 
-
 ```bash
-pip install git+https://github.com/vit1-irk/pyAMPP-0
+python3 -m pip install git+https://github.com/vit1-irk/pyAMPP-0
 ```
 
 ### Using with Python
