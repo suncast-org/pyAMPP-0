@@ -222,15 +222,3 @@ def ampp_field(dl_path, out_model, x, y, dx, dy, dz, res):
 
     out_file.close()
 
-
-#dl_path = "input_data_1/"
-#start_date = datetime.datetime.fromisoformat("2014-02-02T02:22:00.0")
-#end_date   = datetime.datetime.fromisoformat("2014-02-02T02:22:15.0")
-#
-#x=-230
-#y=-110
-#dx=512
-#dy=256
-#dz=256
-#
-#res = 360.49*u.km

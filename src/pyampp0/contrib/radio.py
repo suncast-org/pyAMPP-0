@@ -8,11 +8,15 @@ from astropy.coordinates import SkyCoord
 from sunpy.coordinates import frames
 import astropy.units as u
 from astropy.time import Time
+from pathlib import Path
 import os
 
 class GXRadioImageComputing:
-    def __init__(self, libname):
-        self.libname = libname
+    def __init__(self, libname=None):
+        if libname is not None:
+            self.libname = libname
+        else:
+            self.libname = list(Path(__file__).parent.parent.glob("RenderGRFF*.so"))[0]
         libc_mw=ctypes.CDLL(self.libname)
         self.mwfunc=libc_mw.pyComputeMW
         self.mwfunc.restype=ctypes.c_int
