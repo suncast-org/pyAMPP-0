@@ -98,6 +98,22 @@ def hmi_b2ptr(map_field, map_inclination, map_azimuth):
 
 
 def ampp_field(dl_path, out_model, x, y, dx, dy, dz, res):
+    """Creates a model of coronal magnetic fields, including potential, nlfff and thermal corona model
+
+    Args:
+        dl_path (str): Path to the folder where downloaded files (HMI magnetograms) are stored
+        out_model (str): Path to output HDF5 model file (.h5)
+        x (float): X coordinate of active region center (arcsec) 
+        y (float): Y coordinate of active region center (arcsec)
+        dx (int): number of voxels in X direction
+        dy (int): number of voxels in Y direction
+        dz (int): number of voxels in Z (vertical, to corona) direction
+        res (dimensional astropy Quantity)
+
+    Returns:
+        None
+    """
+    
     input_path = Path(os.path.expanduser(dl_path)).resolve()
 
     if not input_path.exists():
