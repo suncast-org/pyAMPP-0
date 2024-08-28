@@ -57,12 +57,6 @@ def download_closest_magnetograms(target_datetime, download_folder, jsoc_email, 
     search_m = Fido.search(search_times, series_m, notifier, segments_m)
     search_ic = Fido.search(search_times, series_ic, notifier, segments_ic)
 
-    #print(search)
-    #print(search_m)
-    #print(search_ic)
-
-    #if print_only:
-    #    return
     print(f"downloading for time {closest_time.iso}")
 
     if not os.path.exists(download_folder):
@@ -70,7 +64,5 @@ def download_closest_magnetograms(target_datetime, download_folder, jsoc_email, 
 
     fetch_params = dict(path=download_folder, max_conn=streams)
 
-    results = Fido.fetch(search, **fetch_params)
-    results_m = Fido.fetch(search_m, **fetch_params)
-    results_ic = Fido.fetch(search_ic, **fetch_params)
-    return results + results_m + results_ic 
+    results = Fido.fetch(search, search_m, search_ic, **fetch_params)
+    return results

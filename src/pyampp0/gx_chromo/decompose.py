@@ -31,14 +31,16 @@ def decompose(mag, cont):
     # umbra
     sub = cont <= (0.65 * cutoff_qs)
     n_umbra = np.count_nonzero(sub)
-    print("umbra: nelem= ", n_umbra, " abs(B) range: ", np.min(abs_mag[sub]), np.max(abs_mag[sub]))
-    model_mask[sub] = 7
+    if n_umbra != 0:
+        print("umbra: nelem= ", n_umbra, " abs(B) range: ", np.min(abs_mag[sub]), np.max(abs_mag[sub]))
+        model_mask[sub] = 7
 
     # penumbra
     sub = (cont > (0.65 * cutoff_qs)) & (cont <= (0.9 * cutoff_qs))
     n_penumbra = np.count_nonzero(sub)
-    print("penumbra: nelem= ", n_penumbra, " abs(B) range: ", np.min(abs_mag[sub]), np.max(abs_mag[sub]))
-    model_mask[sub] = 6
+    if n_penumbra != 0:
+        print("penumbra: nelem= ", n_penumbra, " abs(B) range: ", np.min(abs_mag[sub]), np.max(abs_mag[sub]))
+        model_mask[sub] = 6
 
     # enhanced NW
     sub = (cont > cutoff_f) & (cont <= (1.19 * cutoff_qs))
