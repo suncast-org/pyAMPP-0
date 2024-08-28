@@ -28,7 +28,7 @@ class Box:
                 "y": np.linspace(0, bshape[1], bshape[1])*res,
                 "z": np.linspace(0, bshape[2], bshape[2])*res,
                 }
-        print(self.grid_coords)
+        #print(self.grid_coords)
         h5f.close()
 
     def open_window(self):
