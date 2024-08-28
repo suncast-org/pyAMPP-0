@@ -20,7 +20,7 @@ dependencies = [
     "zeep",
     "reproject",
     "pyAMaFiL",
-    "git+https://github.com/vit1-irk/pyAMPP"
+    "pyampp @ git+https://github.com/vit1-irk/pyAMPP"
 ]
 
 description = "A script set for 3d magnetic field reconstruction using HMI magnetograms"
