@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pyampp0"
-version = "0.0.2"
+version = "0.0.3"
 readme = "README.md"
 
 dependencies = [
@@ -19,7 +19,8 @@ dependencies = [
     "lxml",
     "zeep",
     "reproject",
-    "pyAMaFiL"
+    "pyAMaFiL",
+    "git+https://github.com/vit1-irk/pyAMPP"
 ]
 
 description = "A script set for 3d magnetic field reconstruction using HMI magnetograms"

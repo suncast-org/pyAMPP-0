@@ -15,7 +15,7 @@ python3 -m pip install .
 
 ### Using with Python
 
-See <./test_01.ipynb>
+See [test_01.ipynb](./test_01.ipynb).
 
 ### Credits
 

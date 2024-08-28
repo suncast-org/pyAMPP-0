@@ -9,6 +9,7 @@ from sunpy.coordinates import frames
 import astropy.units as u
 from astropy.time import Time
 from pathlib import Path
+import h5py
 import os
 
 class GXRadioImageComputing:
@@ -164,10 +165,10 @@ class GXRadioImageComputing:
                 ('corona_L',    np.float32, cor_s),
                 ('chromo_uniform_Bavg', np.float32, cor_s2),
                 ('chromo_uniform_L',    np.float32, cor_s2)]
-        
+
         model_dt = np.dtype(model_dt_varlist)
         model = np.zeros(1, dtype=model_dt)
-    
+
         for vars in model_dt_varlist:
             k, dt = vars[0], vars[1]
             val = dt(locals()[k])
@@ -177,7 +178,23 @@ class GXRadioImageComputing:
                 model[k] = val
     
         return model, model_dt
-    
+
+    def load_model_hdf(self, file_name):
+        model_f = h5py.File(file_name, "r")
+        chromo_box = model_f["chromo"]
+        header = dict(chromo_box.attrs)
+
+        chromo_box_loaded = {}
+        for k in chromo_box.keys():
+            try:
+                chromo_box_loaded[k] = chromo_box[k][:]
+            except ValueError:
+                chromo_box_loaded[k] = chromo_box[k][()]
+        model_f.close()
+        header["obs_time"] = Time(header["obs_time"])
+
+        return self.load_model_dict(chromo_box_loaded, header)
+
     def load_model_sav(self, file_name):
         model_data = io.readsav(file_name)
         lon = model_data.box.index[0].CRVAL1[0]
