@@ -52,4 +52,5 @@ render_grff_module = Extension(
 setup(
     name="pyampp0",
     ext_modules=[render_grff_module],
+    include_package_data=True
 )
