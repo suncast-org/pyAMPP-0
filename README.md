@@ -2,15 +2,32 @@
 
 The aim of this repo is to provide a minimum viable example of [GX Simulator](https://github.com/Gelu-Nita/GX_Simulator) Automated Model Production Pipeline ported line-by-line to Python.
 
-```bash
-# without radio source modeling support
-python3 -m pip install git+https://github.com/vit1-irk/pyAMPP-0
+### Installation
 
-# with radio source modeling support
+Python versions 3.10 and higher are supported. Building GR radiosource modeling code requires `gcc` and `gxx` installed. Windows/macOS is not tested and not guaranteed to work yet.
 
+
+##### Conda env setup
+
+```
+conda create -n pyampp_test python=3.10
+conda activate pyampp_test
+conda install -c conda-forge uv gcc gxx
+```
+
+##### Package installation
+
+```
+pip install uv
+uv pip install -U git+https://github.com/vit1-irk/pyAMPP-0
+```
+
+### Development installation
+
+```
 git clone --recurse-submodules https://github.com/vit1-irk/pyAMPP-0
 cd pyAMPP-0
-python3 -m pip install .
+python3 -m pip install -e .
 ```
 
 ### Using with Python
