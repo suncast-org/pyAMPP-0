@@ -4,18 +4,17 @@ The aim of this repo is to provide a minimum viable example of [GX Simulator](ht
 
 ### Installation
 
-Python versions 3.10 and higher are supported. Building GR radiosource modeling code requires `gcc` and `gxx` installed. Windows/macOS is not tested and not guaranteed to work yet.
+Python versions 3.10 and higher are supported. Tested on Windows and Linux. MacOS is not tested and not guaranteed to work yet.
 
-
-##### Conda env setup
+#### Conda env setup
 
 ```
 conda create -n pyampp_test python=3.10
 conda activate pyampp_test
-conda install -c conda-forge uv gcc gxx
+conda install -c conda-forge uv
 ```
 
-##### Package installation
+#### Package installation / update
 
 ```
 pip install uv
@@ -36,7 +35,7 @@ See [test_01.ipynb](./test_01.ipynb).
 
 ### Credits
 
-Upstream submodules:
+Dependencies:
 
 * <https://github.com/Alexey-Stupishin/pyAMaFiL>
 * <https://github.com/kuznetsov-radio/gximagecomputing>

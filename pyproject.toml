@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pyampp0"
-version = "0.0.3"
+version = "0.0.4"
 readme = "README.md"
 
 dependencies = [
@@ -20,6 +20,7 @@ dependencies = [
     "zeep",
     "reproject",
     "pyAMaFiL",
+    "gximagecomputing",
     "pyampp @ git+https://github.com/vit1-irk/pyAMPP"
 ]
 
